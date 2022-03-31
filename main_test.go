@@ -58,3 +58,41 @@ type messengerMock struct {
 func (m messengerMock) deliver(receiver, text string) error {
 	return m.ReturnErr
 }
+
+// Task 2:
+// * test the sendToBuddy function
+// * do not relay on the actual implementation of the user, admin, or guest struct
+
+func Test_sendToBuddy(t *testing.T) {
+
+	tests := []struct {
+		name    string
+		text    string
+		buddy   interface{}
+		mocks   func()
+		wantErr error
+	}{
+		{
+			name:    "error on too long text",
+			text:    "a much toooooooooooooooooooo long text",
+			buddy:   nil,
+			mocks:   func() {},
+			wantErr: fmt.Errorf("message too long"),
+		},
+		{
+			name: "error on deliver",
+			text: "some text",
+		},
+		{
+			name: "success",
+			text: "some text",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.mocks()
+			err := sendToBuddy(tt.buddy, tt.text)
+			assert.Equal(t, tt.wantErr, err)
+		})
+	}
+}

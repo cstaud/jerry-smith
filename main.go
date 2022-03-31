@@ -26,6 +26,8 @@ func main() {
 	//xIsGreaterThany = isGreaterThanI(x, y)
 	//xIsGreaterThany = isGreaterThan(x, y)
 
+	fmt.Println(someF("a", "b"))
+
 }
 
 func sendItTheUglyWay(messenger interface{}, receiver user, text string) error {
@@ -92,6 +94,28 @@ func (t teams) deliver(receiver, text string) error {
 	return nil
 }
 
+// Task 1:
+// * append the user to hold a favorite messenger instance
+// * implement a function sendToBuddy in a way that it gets a buddy and a text, and calls the corresponding deliver-method
+// 	 * a buddy could be a user, admin, or even a guest?! doesnt matter it should be able to do its stuff anyway!
+type admin struct {
+	Name              string
+	FavoriteMessenger messenger
+}
+type guest struct {
+	Name              string
+	FavoriteMessenger messenger
+}
+type randomVisitor struct {
+	Name string
+}
+
+func sendToBuddy(buddy interface{}, text string) error {
+	return nil
+}
+
+// some generics stuff
+
 func isGreaterThanI(a, b int) bool {
 	if a > b {
 		return true
@@ -122,4 +146,17 @@ func isEqual[T comparable](a, b T) bool {
 		return true
 	}
 	return false
+}
+
+// Task 3:
+// * implement a generics function for user, admin and guest, but not a randomVisitor that says "I'm not stupid"
+func (u user) greet() {
+	fmt.Printf("I'm not stupid")
+}
+
+// Task 4:
+// * implement a function that adds to variable of any integer based type, float32 and string, but not more
+// * the function should return the result
+func someF(a, b string) string {
+	return a + b
 }
