@@ -14,6 +14,18 @@ func main() {
 	_ = send(slackMessenger, morty, "hi this is jeff")
 	_ = send(teamsMessenger, jeff, "hi this is morty")
 
+	//var aIsGreaterThanb, xIsGreaterThany bool
+	//a := 1
+	//b := 2
+	////aIsGreaterThanb = isGreaterThanI(a, b)
+	//aIsGreaterThanb = isGreaterThan(a, b)
+	//
+	//fmt.Printf("aIsGreaterThanb: %t", aIsGreaterThanb)
+	//x := int32(a)
+	//y := int32(b)
+	//xIsGreaterThany = isGreaterThanI(x, y)
+	//xIsGreaterThany = isGreaterThan(x, y)
+
 }
 
 func sendItTheUglyWay(messenger interface{}, receiver user, text string) error {
@@ -78,4 +90,36 @@ type teams struct {
 func (t teams) deliver(receiver, text string) error {
 	fmt.Printf("Sent: '%s' via TEAMS to '%s\n", text, receiver)
 	return nil
+}
+
+func isGreaterThanI(a, b int) bool {
+	if a > b {
+		return true
+	}
+	return false
+}
+
+func isGreaterThanF(a, b float64) bool {
+	if a > b {
+		return true
+	}
+	return false
+}
+
+type NumberConstraint interface {
+	int | float64
+}
+
+func isGreaterThan[T ~int](a, b T) bool {
+	if a > b {
+		return true
+	}
+	return false
+}
+
+func isEqual[T comparable](a, b T) bool {
+	if a == b {
+		return true
+	}
+	return false
 }
