@@ -52,7 +52,6 @@ func send(messenger messenger, receiver user, text string) error {
 
 	// Some Business Logic
 	if err != nil {
-		fmt.Println("oh no what happened?")
 		return err
 	}
 	return nil
@@ -77,6 +76,6 @@ type teams struct {
 }
 
 func (t teams) deliver(receiver, text string) error {
-	fmt.Printf("Sent: %s via TEAMS to %s\n", text, receiver)
+	fmt.Printf("Sent: '%s' via TEAMS to '%s\n", text, receiver)
 	return nil
 }
