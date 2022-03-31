@@ -8,6 +8,10 @@ func main() {
 
 	slackMessenger := slack{}
 	teamsMessenger := teams{}
+	//rick := admin{Name: "rick", FavoriteMessenger: slackMessenger}
+	rick := user{Name: "rick"}
+	sendItTheUglyWay(slackMessenger, rick, "I'm not stupid")
+
 	jeff := user{Name: "jeff"}
 	morty := user{Name: "morty"}
 
@@ -37,9 +41,9 @@ func sendItTheUglyWay(messenger interface{}, receiver user, text string) error {
 	var err error
 	switch messenger.(type) {
 	case slack:
-		err = messenger.(*slack).deliver(receiver.Name, text)
+		err = messenger.(slack).deliver(receiver.Name, text)
 	case teams:
-		err = messenger.(*teams).deliver(receiver.Name, text)
+		err = messenger.(teams).deliver(receiver.Name, text)
 	default:
 		return fmt.Errorf("unknown messenger")
 	}
