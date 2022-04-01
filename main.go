@@ -30,7 +30,7 @@ func main() {
 	//xIsGreaterThany = isGreaterThanI(x, y)
 	//xIsGreaterThany = isGreaterThan(x, y)
 
-	fmt.Println(someF("a", "b"))
+	fmt.Println(someGenericsF("a", "b"))
 
 }
 
@@ -74,6 +74,11 @@ func send(messenger messenger, receiver user, text string) error {
 	}
 	return nil
 }
+
+// Interfaces are implemented implicitly
+// A type implements an interface by implementing its methods. There is no explicit declaration of intent, no "implements" keyword.
+//
+// Implicit interfaces decouple the definition of an interface from its implementation, which could then appear in any package without prearrangement.
 
 // The interface the send function relays on.
 type messenger interface {
@@ -161,6 +166,22 @@ func (u user) greet() {
 // Task 4:
 // * implement a function that adds to variable of any integer based type, float32 and string, but not more
 // * the function should return the result
-func someF(a, b string) string {
+func someNotGeneric(a, b interface{}) (interface{}, error) {
+	err := fmt.Errorf("nah")
+	switch a.(type) {
+	case string:
+		switch b.(type) {
+		case string:
+			return fmt.Sprint(a) + fmt.Sprint(b), nil
+		default:
+			return nil, err
+		}
+	default:
+		return nil, err
+	}
+
+}
+
+func someGenericsF(a, b string) string {
 	return a + b
 }
